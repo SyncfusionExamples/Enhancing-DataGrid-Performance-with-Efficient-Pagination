@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:pager="clr-namespace:Syncfusion.Maui.DataGrid.DataPager;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:local="clr-namespace:Maui_sample"
+             x:Class="Maui_sample.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:OrderInfoRepository x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <pager:SfDataPager x:Name ="dataPager"
+                           Grid.Row="1"
+                           PageSize="10" 
+                           NumericButtonCount="5"
+                           Source="{Binding OrderInfoCollection}">
+            </pager:SfDataPager>
+            <syncfusion:SfDataGrid x:Name="dataGrid"
+                         Grid.Row="0"
+                         SelectionMode="Single"
+                         ColumnWidthMode="Auto"
+                         AutoGenerateColumnsMode="None"
+                         ItemsSource="{Binding Source={x:Reference dataPager}, Path=PagedSource }"  
+                         >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:DataGridNumericColumn HeaderText="Order ID"
+                                                      Format="D0"
+                                          MappingName="OrderID" />
+                    <syncfusion:DataGridNumericColumn  HeaderText="Customer ID"
+                                                       Format="D0"
+                                        MappingName="CustomerID" />
+                    <syncfusion:DataGridTextColumn  HeaderText="Product"
+                                        MappingName="Product" />
+                    <syncfusion:DataGridTextColumn  HeaderText="City"
+                                        MappingName="City" />
+                    <syncfusion:DataGridNumericColumn  HeaderText="Order Price"
+                                                       Format="C0"
+                                        MappingName="OrderPrice" />
+                    <syncfusion:DataGridNumericColumn  HeaderText="Shipment Price"
+                                                         Format="C0"
+                                        MappingName="ShipmentPrice" />
+                    <syncfusion:DataGridNumericColumn  HeaderText="Total Price"
+                                                         Format="C0"
+                                         MappingName="TotalPrice" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
